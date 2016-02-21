@@ -40,11 +40,11 @@ O diretório src possui os códigos fontes. Nela estão contidos os menus do sof
 ## Dicas para o estudo do código fonte
 
 Para o estudo do código fonte é aconselhavel que o desenvolvedor se concentre inicialmente
-nas classes nomeadas com sufixo Menu contidas no diretório src. Cada um destes menus
+nas classes nomeadas com sufixo Menu contidas no diretório .../src. Cada um destes menus
 representam uma tela do software e realizam chamadas simples às bibliotecas de
 estrutura de dados. Elas irão passar a noção geral do software, enquanto que o
 aprofundamento deverá ser realizado com o estudos dos códigos contidos na biblioteca de
-estrutura de dados no diretório src/hashlib. Você pode utilizar a documentação gerada
-através do doxygen contida no diretório doc para orientar sua análise.
+estrutura de dados no diretório .../src/hashlib. Você pode utilizar a documentação gerada
+através do doxygen contida no diretório .../doc para orientar sua análise.
 
 
