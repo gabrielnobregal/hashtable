@@ -1,0 +1,178 @@
+#include "HashTable.h"
+
+
+HashTable::HashTable(int size){
+	hashKeyCalc = NULL; //Não utilizo a função set porque neste caso irá remover bloco aleatório da memória
+	setSize(0);
+	setNumOfElements(0);
+	create(size);
+}
+
+HashTable::HashTable(){
+	hashKeyCalc = NULL; //Não utilizo a função set porque neste caso irá remover bloco aleatório da memória
+	setSize(0);
+	setNumOfElements(0);
+}
+
+HashTable::~HashTable(){
+	release();
+}
+
+void HashTable::setSize(int size){
+	this->size = size;
+}
+
+void HashTable::setNumOfElements(int numOfElements){
+	this->numOfElements = numOfElements;
+}
+
+void HashTable::nullifyLists(){
+	for(int i=0;i<getSize();i++){
+		list[i] = NULL;
+	}
+}
+
+void HashTable::setHashTable(HashTable *hashTable){
+	// Permite que classes derivadas possam trabalhar com HashTable externas
+	for(int i=0; i<hashTable->getSize(); i++){
+		list[i] = hashTable->list[i];
+	}
+}
+
+void HashTable::create(int size){
+
+	// Caso exista uma tabela hash prévia libera memória
+	if(getSize()> 0){
+		release();
+	}
+	
+	// Define a função de hash padrão para somas
+	HashKeyCalc *hashFunction = new WordSumKeyCalc();
+	setHashFunction(hashFunction);
+	
+
+	//Aloca espaço para a tabela hash
+	setSize(size);
+	setNumOfElements(0);
+	list = new LinkedList*[size];
+
+	nullifyLists();
+}
+
+int HashTable::getSize(){
+	return size;
+}
+
+int HashTable::getNumOfElements(){
+	return numOfElements;
+}
+
+int HashTable::getHashKey(string word){
+
+    if(hashKeyCalc != NULL){
+        return hashKeyCalc->calculateHashKey(word, getSize());
+    }
+
+    return -1;    
+}
+
+void HashTable::add(string word){
+	int hashKey = getHashKey(word);
+
+	if(list[hashKey] == NULL){
+		list[hashKey] = new LinkedList();
+		list[hashKey]->add(word);
+		setNumOfElements(getNumOfElements() + 1);
+	}else{
+		list[hashKey]->add(word);
+		setNumOfElements(getNumOfElements() + 1);
+	}
+}
+
+bool HashTable::remove(string word){
+	int hashKey = getHashKey(word);
+	int sizeList = getHashKeyElements(hashKey);
+
+	if(list[hashKey] != NULL){
+		for(int i=0;i<sizeList;i++){
+			if(list[hashKey]->get(i).compare(word) == 0){
+				list[hashKey]->remove(i);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+int HashTable::getHashKeyElements(int hashKey){
+	if(list[hashKey] != NULL)
+		return list[hashKey]->getSize();
+
+	return 0;
+}
+
+string HashTable::get(int hashKey, int n){
+
+	if(hashKey<0 || hashKey>=getSize()){
+		return NULL;
+	}
+
+	if(list[hashKey] == NULL){
+		return NULL;
+	}else{
+		if(n<list[hashKey]->getSize() && n>=0){
+			return list[hashKey]->get(n);
+		}
+	}
+
+	return NULL;
+}
+
+bool HashTable::wordExists(string word){
+	int hashKey = getHashKey(word);
+	int sizeList = getHashKeyElements(hashKey);
+
+	for(int j=0; j<sizeList; j++){
+		if(get(hashKey, j).compare(word) == 0){
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void HashTable::setHashFunction(HashKeyCalc *hashKeyCalc){
+	// Libera memória caso exista uma função de hash prévia(evita vazamento)
+	if(getHashFunction() != NULL){  
+	    delete this->hashKeyCalc; 
+	    this->hashKeyCalc = NULL;
+	}
+	
+	this->hashKeyCalc = hashKeyCalc;
+}
+
+HashKeyCalc* HashTable::getHashFunction(){
+	return this->hashKeyCalc;
+}
+
+void HashTable::release(){
+
+    // Libera memória das listas encadeadas
+    for(int i=0;i<getSize();i++){
+	delete list[i];
+    }
+
+    if(getSize()>0){
+        nullifyLists();
+        delete [] list; // Libera memória dos ponteiros para ponteiros de listas ligadas
+    }
+    
+    // Libera memória para a função de hash atual
+    if(getHashFunction()!=NULL){
+	 delete this->hashKeyCalc;   
+	 this->hashKeyCalc = NULL;  
+    }
+	setSize(0);
+
+}

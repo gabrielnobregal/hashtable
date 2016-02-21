@@ -1,0 +1,6 @@
+Endereco com 0 registros: 1
+Endereco com 1 registros: 1
+Endereco com 2 registros: 0
+Endereco com 3 registros: 0
+Endereco com 4 registros: 0
+Endereco com 5 registros: 2
