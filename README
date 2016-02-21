@@ -1,4 +1,8 @@
-==Compilando e executando o projeto==
+# HashTable
+
+Este projeto foi feito com o objetivo de realizar um estudo sobre tabelas hash e diferentes funções de dispersão. O projeto foi feito em C++ e acompanha um relatório.
+
+## Compilando e Executando
 
 O projeto foi desenvolvido em linguagem C++, sendo assim será necessário a utilização
 do compilador g++. Tente executar o g++ pelo terminal, caso este não seja localizado
@@ -10,7 +14,7 @@ sudo apt-get install g++
 Com o compilador instalado o projeto pode ser compilado com o comando make
 dentro do diretório src do projeto.
 
-.../HashApp/src$ make
+make
 
 O comando irá gerar o binário hashapp dentro do diretório src. Para executa-lo utilize
 o comando:
@@ -26,15 +30,14 @@ O menu primário irá ser apresentado, como mostra abaixo:
 ------------------------
 ->1
 
-As opções de menu são auto explicativas. O software não necessita da passagem de parâmetros, sua utilização deve ser feita através da seleção de opções nos menus. Qualquer dúvida consulte os passos contidos no relatório, eles mostram as opções necessários para a realização de
-cada item de exercício.
+As opções de menu são auto explicativas. O software não necessita da passagem de parâmetros, sua utilização deve ser feita através da seleção de opções nos menus. Qualquer dúvida consulte os passos contidos no relatório.
 
 Para eliminar todos os arquivos binários gerados no processo de compilação execute o comando:
 
 .../HashApp/src$ make clear
 
 
-==Hierarquia de diretórios==
+## Hierarquia de diretórios
 
 O diretório /doc possui a documentação gerada com o doxygen. Para visualiza-lo abra a página
 index.html e selecione a opção "classes". 
@@ -42,7 +45,7 @@ index.html e selecione a opção "classes".
 O diretório /src possui os códigos fontes. Nela estão contidos os menus do software que realizam chamadas para a biblioteca de estrutura de dados e para o gerenciador de menus. Em /src/hashlib está toda a biblioteca de estrutura de dados. Em /src/menulib está a o gerenciador de menus.
 
 
-==Dicas para o estudo do código fonte==
+## Dicas para o estudo do código fonte
 
 Para o estudo do código fonte é aconselhavel que o desenvolvedor se concentre inicialmente
 nas classes nomeadas com sufixo Menu contidas no diretório .../src. Cada um destes menus
@@ -52,6 +55,4 @@ aprofundamento deverá ser realizado com o estudos dos códigos contidos na bibl
 estrutura de dados no diretório .../src/hashlib. Você pode utilizar a documentação gerada
 através do doxygen contida no diretório .../doc para orientar sua análise.
 
-==Contato==
-e-mail:gabriel.nobrega.lima@gmail.com 
 
